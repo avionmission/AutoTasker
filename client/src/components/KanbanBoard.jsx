@@ -92,7 +92,7 @@ export default function KanbanBoard({ tasks, setTasks }) {
             <h3>{cat}</h3>
             {tasksWithCategory.filter(t => t.category === cat).map((task) => (
               <div 
-                key={task.id || task.task} 
+                key={task.id} 
                 className={`kanban-task ${task.completed ? 'completed' : ''} ${draggedTask?.id === task.id ? 'dragging' : ''}`}
                 draggable={true}
                 onDragStart={(e) => handleDragStart(e, task)}

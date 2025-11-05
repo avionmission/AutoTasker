@@ -45,12 +45,19 @@ export default function ChatBox({ setTasks }) {
     }
   };
 
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSend();
+    }
+  };
+
   return (
     <div className="chat-box">
       <input 
         type="text"
         value={message}
         onChange={e => setMessage(e.target.value)}
+        onKeyPress={handleKeyPress}
         placeholder="Add a task (e.g., Fix login bug)"
       />
       <button onClick={handleSend}>

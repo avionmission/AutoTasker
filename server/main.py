@@ -2,9 +2,11 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from crew.task_processor import process_tasks, categorize_single_task
 from fastapi.middleware.cors import CORSMiddleware
+import uuid
 
 app = FastAPI()
 tasks_db = []
+next_task_id = 1  # Global counter for unique IDs
 
 app.add_middleware(
     CORSMiddleware,
@@ -22,9 +24,10 @@ class TaskUpdate(BaseModel):
 
 @app.post("/add_task")
 def add_task(data: TaskInput):
-    # Add task immediately with temporary category
+    global next_task_id
+    # Add task immediately with temporary category and unique ID
     temp_task = {
-        "id": len(tasks_db) + 1,  # Simple ID generation
+        "id": next_task_id,  # Use global counter for unique IDs
         "task": data.text,
         "category": "Processing...",
         "priority": "medium",
@@ -32,6 +35,7 @@ def add_task(data: TaskInput):
         "completed": False
     }
     tasks_db.append(temp_task)
+    next_task_id += 1  # Increment for next task
     
     # Start background categorization
     import threading
