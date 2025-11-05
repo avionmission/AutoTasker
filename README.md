@@ -1,81 +1,45 @@
-# Auto Tasker
+# 🧠 AutoTasker
 
-An intelligent task management system that combines conversational AI with automated project organization. Auto Tasker uses CrewAI to intelligently categorize and manage your development tasks through a modern web interface.
+For people with long, unmanageable todo lists. AI-powered task management with intelligent categorization and modern UI.
 
-## Core Features
+## Features
 
-### 💬 Chat UI
-Add or query tasks conversationally with natural language processing. Simply type commands like "Add 'Fix login bug' to backend tasks" and let the AI handle the rest.
+- **Conversational Input**: Add tasks using natural language
+- **Smart Kanban Board**: Drag & drop with AI categorization
+- **Dark/Light Mode**: Persistent theme switching
+- **AI Summaries**: Daily progress reports
+- **Auto-cleanup**: Empty categories removed automatically
 
-### 🗂️ Kanban Board
-Visual task management with automatic categorization powered by CrewAI. Tasks are intelligently sorted into relevant categories such as:
-- Backend
-- Frontend  
-- Documentation
-- Testing
-- DevOps
+## Quick Start
 
-### 🧠 Daily Summary Modal
-Get AI-generated summaries of your project progress. Track what's been accomplished, identify bottlenecks, and plan next steps with intelligent insights.
-
-### ⚙️ FastAPI Backend
-Robust API backend built with FastAPI that handles:
-- Task processing and CRUD operations
-- CrewAI orchestration and integration
-- Real-time updates and notifications
-- Data persistence and retrieval
-
-### 🐳 Dockerized Deployment
-Fully containerized application for seamless deployment across environments. Easy setup and portability with Docker containers.
-
-## Getting Started
-
-### Prerequisites
-- Docker and Docker Compose
-- Python 3.8+ (for local development)
-
-### Quick Start with Docker
 ```bash
-# Clone the repository
-git clone <repository-url>
-cd auto-tasker
-
-# Start the application
+# Docker (recommended)
 docker-compose up -d
-
-# Access the application
 open http://localhost:3000
+
+# Local development
+pip install -r server/requirements.txt
+uvicorn main:app --reload  # Backend
+npm install && npm run dev  # Frontend (separate terminal)
 ```
 
-### Local Development
-```bash
-# Install dependencies
-pip install -r requirements.txt
-
-# Start the FastAPI backend
-uvicorn main:app --reload
-
-# Start the frontend (in separate terminal)
-npm install
-npm run dev
-```
+**Setup**: Add `GEMINI_API_KEY=your_key` to `server/.env`
 
 ## Usage
 
-1. **Adding Tasks**: Use the chat interface to add tasks naturally
-   - "Create a task to implement user authentication"
-   - "Add debugging the payment flow to frontend tasks"
+1. **Add tasks**: Type naturally - "Fix login bug" or "Walk the dog"
+2. **Manage**: Drag tasks between categories, mark complete, or delete
+3. **Themes**: Toggle dark/light mode with the theme button
+4. **Summaries**: Generate AI progress reports
 
-2. **Managing Tasks**: Drag and drop tasks between categories on the Kanban board
+**Categories**: Development, Testing, Personal, Health, Household, Shopping, etc.
 
-3. **Daily Reviews**: Check the daily summary modal for AI-generated progress reports
+## Tech Stack
 
-## Architecture
-
-- **Frontend**: Modern web interface with real-time updates
-- **Backend**: FastAPI with CrewAI integration
-- **AI Engine**: CrewAI for intelligent task categorization and insights
-- **Deployment**: Docker containers for consistent environments
+- **Frontend**: React 18, CSS custom properties
+- **Backend**: FastAPI, CrewAI
+- **AI**: Google Gemini for categorization and summaries
+- **Deployment**: Docker
 
 ## Contributing
 
@@ -83,7 +47,3 @@ npm run dev
 2. Create a feature branch
 3. Make your changes
 4. Submit a pull request
-
-## License
-
-[Add your license information here]

@@ -94,6 +94,19 @@ def delete_task(task_id: int):
     tasks_db = [task for task in tasks_db if task.get("id") != task_id]
     return {"message": "Task deleted", "tasks": tasks_db}
 
+@app.put("/tasks/{task_id}/category")
+def update_task_category(task_id: int, category_data: dict):
+    """Update task category"""
+    new_category = category_data.get("category")
+    if not new_category:
+        return {"error": "Category is required"}, 400
+    
+    for task in tasks_db:
+        if task.get("id") == task_id:
+            task["category"] = new_category
+            return {"message": "Task category updated", "task": task}
+    return {"error": "Task not found"}, 404
+
 @app.post("/summary")
 def generate_summary():
     result = process_tasks(tasks_db)
