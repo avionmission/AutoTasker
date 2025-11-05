@@ -1,0 +1,7 @@
+google-generativeai
+google-genai-1.48.0
+fastapi
+uvicorn
+crewai
+openai
+python-dotenv
