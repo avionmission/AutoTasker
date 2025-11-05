@@ -108,6 +108,77 @@ body {
     margin-bottom: 0.5rem;
     font-size: 0.9rem;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .kanban-task.completed {
+    background: #f0f9ff;
+    border-color: #bfdbfe;
+  }
+  
+  .task-content {
+    flex: 1;
+  }
+  
+  .task-text {
+    color: #374151;
+  }
+  
+  .task-text-completed {
+    color: #6b7280;
+    text-decoration: line-through;
+  }
+  
+  .task-actions {
+    display: flex;
+    gap: 0.25rem;
+  }
+  
+  .task-btn {
+    background: none;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .btn-check {
+    color: #059669;
+    border-color: #d1fae5;
+  }
+  
+  .btn-check:hover {
+    background: #d1fae5;
+    border-color: #059669;
+  }
+  
+  .btn-uncheck {
+    color: #0369a1;
+    border-color: #bfdbfe;
+  }
+  
+  .btn-uncheck:hover {
+    background: #bfdbfe;
+    border-color: #0369a1;
+  }
+  
+  .btn-delete {
+    color: #dc2626;
+    border-color: #fecaca;
+  }
+  
+  .btn-delete:hover {
+    background: #fecaca;
+    border-color: #dc2626;
   }
   
   /* ---------- Summary Modal ---------- */

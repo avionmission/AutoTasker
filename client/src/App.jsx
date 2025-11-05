@@ -18,7 +18,7 @@ export default function App() {
     <div className="container">
       <h1>🧠 AutoTasker</h1>
       <ChatBox setTasks={setTasks} />
-      <KanbanBoard tasks={tasks} />
+      <KanbanBoard tasks={tasks} setTasks={setTasks} />
       <button 
         onClick={() => setShowModal(true)} 
         className="generate-btn">

@@ -95,7 +95,8 @@ Return ONLY a valid JSON object with this exact format:
             "task": task_text,
             "category": category,
             "priority": "medium",
-            "owner": "unassigned"
+            "owner": "unassigned",
+            "completed": False
         }
 
 def process_tasks(tasks):

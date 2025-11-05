@@ -16,14 +16,20 @@ app.add_middleware(
 class TaskInput(BaseModel):
     text: str
 
+class TaskUpdate(BaseModel):
+    id: int
+    completed: bool
+
 @app.post("/add_task")
 def add_task(data: TaskInput):
     # Add task immediately with temporary category
     temp_task = {
+        "id": len(tasks_db) + 1,  # Simple ID generation
         "task": data.text,
         "category": "Processing...",
         "priority": "medium",
-        "owner": "unassigned"
+        "owner": "unassigned",
+        "completed": False
     }
     tasks_db.append(temp_task)
     
@@ -37,6 +43,9 @@ def add_task(data: TaskInput):
             # Find and update the task in the database
             for i, task in enumerate(tasks_db):
                 if task["task"] == data.text and task["category"] == "Processing...":
+                    # Preserve ID and completed status
+                    categorized_task["id"] = task["id"]
+                    categorized_task["completed"] = task.get("completed", False)
                     tasks_db[i] = categorized_task
                     break
         except Exception as e:
@@ -45,10 +54,12 @@ def add_task(data: TaskInput):
             for i, task in enumerate(tasks_db):
                 if task["task"] == data.text and task["category"] == "Processing...":
                     tasks_db[i] = {
+                        "id": task["id"],
                         "task": data.text,
                         "category": "General",
                         "priority": "medium",
-                        "owner": "unassigned"
+                        "owner": "unassigned",
+                        "completed": task.get("completed", False)
                     }
                     break
     
@@ -66,6 +77,22 @@ def get_tasks():
 def refresh_tasks():
     """Endpoint to get fresh task data - useful for polling updates"""
     return {"tasks": tasks_db}
+
+@app.put("/tasks/{task_id}/toggle")
+def toggle_task(task_id: int):
+    """Toggle task completion status"""
+    for task in tasks_db:
+        if task.get("id") == task_id:
+            task["completed"] = not task.get("completed", False)
+            return {"message": "Task updated", "task": task}
+    return {"error": "Task not found"}, 404
+
+@app.delete("/tasks/{task_id}")
+def delete_task(task_id: int):
+    """Delete a task"""
+    global tasks_db
+    tasks_db = [task for task in tasks_db if task.get("id") != task_id]
+    return {"message": "Task deleted", "tasks": tasks_db}
 
 @app.post("/summary")
 def generate_summary():

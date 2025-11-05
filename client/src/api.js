@@ -16,3 +16,13 @@ export const generateSummary = async () => {
   const res = await axios.post(`${API_BASE}/summary`);
   return res.data;
 };
+
+export const toggleTask = async (taskId) => {
+  const res = await axios.put(`${API_BASE}/tasks/${taskId}/toggle`);
+  return res.data;
+};
+
+export const deleteTask = async (taskId) => {
+  const res = await axios.delete(`${API_BASE}/tasks/${taskId}`);
+  return res.data;
+};
